@@ -83,7 +83,13 @@ export const useRealTimeSync = (tournamentId) => {
   };
 
   useEffect(() => {
-    if (!tournamentId) return;
+    if (!tournamentId) {
+      setLoading(false);
+      setStandings([]);
+      setMatches([]);
+      setRealTimeStatus('disconnected');
+      return;
+    }
 
     // 1. Load initial data
     fetchInitialData();
