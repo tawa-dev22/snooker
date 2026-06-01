@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Trophy, Users, PlusCircle, AlertCircle, Sparkles, Check, CheckSquare, Square } from 'lucide-react';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+import { API_BASE_URL } from '../utils/api';
 
 const TournamentCreator = ({ token, onTournamentCreated }) => {
   // State for tournament creation form

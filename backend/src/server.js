@@ -17,27 +17,27 @@ const PORT = process.env.PORT || 5000;
 // Connect to MongoDB Atlas Database
 connectDB();
 
-// CORS dynamic configuration supporting standard headers, credentials, and Vercel domains
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',')
-  : ['http://localhost:5173'];
-
+// CORS configuration looking for FRONTEND_URL from environment variables (cloud settings)
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps, curl, or server-to-server calls)
-    if (!origin) return callback(null, true);
+    const frontendUrl = process.env.FRONTEND_URL;
     
-    const isAllowedLocalOrProd = allowedOrigins.includes(origin);
-    const isAllowedVercelBranch = origin.endsWith('.vercel.app');
-
-    if (isAllowedLocalOrProd || isAllowedVercelBranch) {
-      callback(null, true);
+    if (frontendUrl) {
+      // Restrict access strictly to FRONTEND_URL if provided
+      if (!origin || origin === frontendUrl) {
+        callback(null, true);
+      } else {
+        console.warn(`Origin '${origin}' blocked. Allowed origin is strictly: ${frontendUrl}`);
+        callback(new Error('Blocked by CORS policy'));
+      }
     } else {
-      console.warn(`Origin '${origin}' blocked by CORS policy.`);
-      callback(new Error('Blocked by CORS policy'));
+      // If FRONTEND_URL does not exist, allow wildcard access or localhost.
+      // Since credentials: true is enabled, we echo back the origin rather than using '*' header
+      // because browsers forbid '*' when credentials are included.
+      callback(null, true);
     }
   },
-  credentials: true,
+  credentials: true, // Enable credentials handling if cookies/sessions are needed
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };

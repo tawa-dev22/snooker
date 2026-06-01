@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Play, CheckCircle2, XCircle, ChevronUp, ChevronDown, Save, Loader2, AlertCircle } from 'lucide-react';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+import { API_BASE_URL } from '../utils/api';
 
 const MatchScorer = ({ match, token, onScoreUpdated, onCancel }) => {
   const [player1Score, setPlayer1Score] = useState(match.player1Score);

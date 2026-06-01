@@ -6,7 +6,7 @@ import TournamentCreator from './components/TournamentCreator';
 import MatchScorer from './components/MatchScorer';
 import { useRealTimeSync } from './hooks/useRealTimeSync';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+import { API_BASE_URL } from './utils/api';
 
 function App() {
   // Navigation tabs

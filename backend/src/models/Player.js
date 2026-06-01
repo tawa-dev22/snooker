@@ -26,7 +26,6 @@ const playerSchema = new mongoose.Schema(
 );
 
 // Optimize queries listing players
-playerSchema.index({ name: 1 });
 
 const Player = mongoose.model('Player', playerSchema);
 export default Player;

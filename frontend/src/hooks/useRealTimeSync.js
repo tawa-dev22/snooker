@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+import { API_BASE_URL } from '../utils/api';
 const ENABLE_SSE = import.meta.env.VITE_ENABLE_SSE !== 'false';
 
 /**

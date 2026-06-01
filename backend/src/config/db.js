@@ -5,16 +5,17 @@ dotenv.config();
 
 const connectDB = async () => {
   try {
-    const connStr = process.env.MONGODB_URI;
+    // Cloud environment variable injects MONGO_URI
+    const connStr = process.env.MONGO_URI;
     if (!connStr) {
-      console.error('CRITICAL: MONGODB_URI is not defined in environment variables.');
+      console.error('CRITICAL: MONGO_URI is not defined in environment variables.');
       process.exit(1);
     }
 
     const conn = await mongoose.connect(connStr);
     console.log(`MongoDB Connected successfully to host: ${conn.connection.host}`);
   } catch (error) {
-    console.error(`MongoDB Connection Error: ${error.message}`);
+    console.error(`MongoDB Connection Error during startup: ${error.message}`);
     process.exit(1);
   }
 };
